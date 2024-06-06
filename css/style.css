@@ -179,13 +179,13 @@ div.cabeceraCard {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 div.cabeceraCard div {
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 10px;
-  margin-bottom: 10px;
 }
 div.cabeceraCard h3 {
   font-style: italic;
@@ -198,16 +198,42 @@ div.cabeceraCard h4 {
 }
 
 div.cardMessage p {
-  font-weight: 600;
+  font-weight: 800;
   color: var(--white);
   margin-bottom: 10px;
 }
 div.opciones {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 0px;
   align-items: center;
-  gap: 10px;
 }
+div.opciones p {
+  grid-area: 1 / 11 / 2 / 12;
+  margin: 0;
+}
+
+div.opciones button {
+  color: var(--azulDark);
+  font-weight: 800;
+  text-align: left;
+  padding: 5px 10px;
+  border: 1px solid var(--azul);
+  border-radius: 5px;
+  background-color: var(--shadow);
+  grid-area: 1 / 1 / 2 / 11;
+}
+div.opciones button:hover {
+  box-shadow: 0 0 4px var(--shadow);
+  background-color: var(--azul);
+  color: var(--white);
+}
+div.opciones button:active {
+  background-color: var(--azulDark);
+}
+
 /* --------------------sidebar------------------ */
 div.side-bar {
   grid-area: side;
