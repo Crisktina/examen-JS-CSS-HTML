@@ -36,15 +36,25 @@
         </div>
         <form action="#">
           <div class="encuesta">
-            <input
-              type="text"
-              placeholder="Pregunta para la nueva encuesta..."
-            />
+            <div class="padreInput">
+              <input
+                type="text"
+                placeholder="Pregunta para la nueva encuesta..."
+                maxlength="25"
+              />
+              <span class="char-count">0/25</span>
+            </div>
             <button class="button" type="submit">Publicar</button>
           </div>
           <div class="encuesta opcionesCrear" id="opcionesEncuesta">
-            <input type="text" placeholder="Opción 1" maxlength="25" />
-            <input type="text" placeholder="Opción 2" maxlength="25" />
+            <div class="padreInput">
+              <input type="text" placeholder="Opción 1" maxlength="25" />
+              <span class="char-count">0/25</span>
+            </div>
+            <div class="padreInput">
+              <input type="text" placeholder="Opción 2" maxlength="25" />
+              <span class="char-count">0/25</span>
+            </div>
             <button id="addButton" class="button" type="button">
               <img src="./img/mas.svg" alt="buscar" />
             </button>
@@ -63,7 +73,7 @@
               </div>
               <h3>Macarena16</h3>
             </div>
-            <h4>2 votos</h4>
+            <h4 id="totalVotos">0 votaciones</h4>
           </div>
           <p>¿Esto es una pregunta de muestra?</p>
           <div class="opciones">

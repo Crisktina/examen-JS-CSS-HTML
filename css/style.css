@@ -153,8 +153,19 @@ div.navbar form div.opcionesCrear {
   gap: 5px;
   margin-top: 10px;
 }
-div.navbar form div input {
+div.navbar form div.opcionesCrear div input {
   width: 100%;
+}
+div.padreInput {
+  width: 100%;
+  position: relative;
+}
+span.char-count {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  font-size: 12px;
+  color: var(--azul);
 }
 
 /* --------------------content------------------ */

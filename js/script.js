@@ -1,14 +1,3 @@
-//document.addEventListener('DOMContentLoaded', () => {
-// const buttons = document.querySelectorAll('button');
-// buttons.forEach(button => {
-//   button.addEventListener('click', (event) => {
-//     console.log('Ok.');
-//         event.preventDefault();
-//         console.log('Ok.');
-//     });
-// });
-//});
-
 //Añadir inputs en crear encuesta
 const botonAdd = document.getElementById("addButton");
 botonAdd.addEventListener("click", (e) => {
@@ -29,46 +18,55 @@ function addOption(botonAdd) {
   }
 
   const newOptionNumber = currentInputs + 1;
-
+  //TODO: añadir div padre (crear elemento) y tambien el span
   let input = document.createElement("input");
   input.type = "text";
   input.placeholder = `Opción ${newOptionNumber}`;
   input.maxLength = "25";
-  //TODO: guardar el numero para luego la encuasta lo tenga en el value
 
   opcionesEncuesta.insertBefore(input, botonAdd);
 }
 
+const inputs = document.querySelectorAll("[maxlength]");
+inputs.forEach((input) => {
+  input.addEventListener("input", () => numChar(input));
+});
+
+function numChar(input) {
+  const maxLength = input.getAttribute("maxlength");
+  const currentLength = input.value.length;
+  const charCountSpan = input.nextElementSibling;
+  charCountSpan.textContent = `${currentLength}/${maxLength}`;
+}
+
 //TODO:crear encuesta a partir del form
 
-//survey boton votar
-let totalVotos = 0;
-
+//survey VOTACIONES
 btnNode = document.querySelectorAll(".btnSurvey");
 porcentajeNode = document.querySelectorAll(".porcentaje");
-//console.log(porcentajeNode[1].innerHTML);
 const votosXBtn = new Array(btnNode.length).fill(0);
+let totalVotos = 0;
 
 btnNode.forEach((button, index) => {
   button.addEventListener("click", (event) => {
     event.preventDefault();
     totalVotos++;
     votosXBtn[index]++;
-    console.log(totalVotos + "total votos despues del click");
+    //total votos
+    let totalVotosH4 = document.getElementById("totalVotos");
+    totalVotosH4.innerHTML = totalVotos + " votaciones";
+
     actualizarPorcentajes();
   });
 });
 
 function calcularPorcentaje(votosOpcion) {
-  console.log(totalVotos + "totalvotos despues defuncion");
   let porcentaje = (100 * votosOpcion) / totalVotos;
-  console.log(porcentaje + "calcularPorcentaje");
-  return porcentaje.toFixed(2);
+  return porcentaje.toFixed(0);
 }
+
 function actualizarPorcentajes() {
   porcentajeNode.forEach((p, index) => {
-    console.log(p.innerHTML);
     p.innerHTML = calcularPorcentaje(votosXBtn[index]) + "%";
-    console.log(p.innerHTML);
   });
 }
