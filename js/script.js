@@ -18,18 +18,23 @@ function addOption(botonAdd) {
   }
 
   const newOptionNumber = currentInputs + 1;
-  //TODO: añadir div padre (crear elemento) y tambien el span
-  let input = document.createElement("input");
-  input.type = "text";
-  input.placeholder = `Opción ${newOptionNumber}`;
-  input.maxLength = "25";
 
-  opcionesEncuesta.insertBefore(input, botonAdd);
+  let newDiv = document.createElement("div");
+  newDiv.className = "padreInput";
+  newDiv.innerHTML = `
+    <input type="text" placeholder="Opción ${newOptionNumber}" maxlength="25" />
+    <span class="char-count">0/25</span>
+  `;
+
+  opcionesEncuesta.insertBefore(newDiv, botonAdd);
 }
-
+//TODO: no reconoce el contar caracteres en los nuevos inputs creados
 const inputs = document.querySelectorAll("[maxlength]");
 inputs.forEach((input) => {
-  input.addEventListener("input", () => numChar(input));
+  input.addEventListener("keyup", (e) => {
+    e.preventDefault();
+    numChar(input);
+  });
 });
 
 function numChar(input) {
@@ -46,12 +51,18 @@ btnNode = document.querySelectorAll(".btnSurvey");
 porcentajeNode = document.querySelectorAll(".porcentaje");
 const votosXBtn = new Array(btnNode.length).fill(0);
 let totalVotos = 0;
+let userVotos = 0;
 
 btnNode.forEach((button, index) => {
   button.addEventListener("click", (event) => {
     event.preventDefault();
-    totalVotos++;
-    votosXBtn[index]++;
+    //delimitar a una votación por user (implementación a futuro)
+    if (userVotos === 0) {
+      totalVotos++;
+      votosXBtn[index]++;
+      userVotos++;
+    }
+
     //total votos
     let totalVotosH4 = document.getElementById("totalVotos");
     totalVotosH4.innerHTML = totalVotos + " votaciones";
