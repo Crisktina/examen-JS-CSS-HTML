@@ -1,39 +1,52 @@
+//inputs de todo el formulario
+const formulario = document.getElementById("miForm");
+let inputs = formulario.querySelectorAll("input");
+
 //Añadir inputs en crear encuesta
 const botonAdd = document.getElementById("addButton");
 botonAdd.addEventListener("click", (e) => {
   e.preventDefault();
-  addOption(botonAdd);
+  addOption(botonAdd, inputs);
 });
 
-function addOption(botonAdd) {
+function addOption(botonAdd, inputs) {
+  //inputs creados con + opciones encuesta
   const opcionesEncuesta = document.getElementById("opcionesEncuesta");
-
-  // Contar el número actual de inputs
-  const currentInputs = opcionesEncuesta.querySelectorAll("input").length;
-
+  const currentInputs = opcionesEncuesta.querySelectorAll("input");
+  // Contar el número actual de inputs con length
   // Verificar si ya hay 4 inputs
-  if (currentInputs >= 4) {
+  if (currentInputs.length >= 4) {
     alert("No puedes añadir más de 4 opciones.");
     return;
   }
 
-  const newOptionNumber = currentInputs + 1;
+  const newOptionNumber = currentInputs.length + 1;
 
   let newDiv = document.createElement("div");
   newDiv.className = "padreInput";
   newDiv.innerHTML = `
     <input type="text" placeholder="Opción ${newOptionNumber}" maxlength="25" />
     <span class="char-count">0/25</span>
+    <div class="invalid-feedback"></div>
   `;
 
   opcionesEncuesta.insertBefore(newDiv, botonAdd);
+
+  let inputsNew = opcionesEncuesta.querySelectorAll("input");
+  console.log(inputsNew);
+  //inputs creados
+  inputsNew.forEach((input) => {
+    input.addEventListener("keyup", () => {
+      numChar(input);
+      validText(input);
+    });
+  });
 }
-//TODO: no reconoce el contar caracteres en los nuevos inputs creados
-const inputs = document.querySelectorAll("[maxlength]");
+
 inputs.forEach((input) => {
-  input.addEventListener("keyup", (e) => {
-    e.preventDefault();
+  input.addEventListener("keyup", () => {
     numChar(input);
+    validText(input);
   });
 });
 
@@ -45,6 +58,50 @@ function numChar(input) {
 }
 
 //TODO:crear encuesta a partir del form
+//validaciones
+let error = false;
+let mensajeObligatorio = "Campo obligatorio";
+
+//-----Campo obligatorio
+//trim, no empty, no mayor de 25 caracteres...
+function validText(input) {
+  const divError = document.getElementById("invalid-name");
+  if (input.value.trim().length == 0 || input.value.trim().length >= 25) {
+    errorActive(divError, input, mensajeObligatorio);
+    return false;
+  } else {
+    success(divError, input);
+    return true;
+  }
+}
+// Activar error
+function errorActive(divError, input, mensaje) {
+  divError.innerHTML = mensaje;
+  divError.style.display = "block";
+  input.style.border = "2px solid red";
+}
+// Activar success
+function success(divError, input) {
+  divError.style.display = "none";
+  input.style.border = "2px solid var(--turquesa)";
+}
+
+formulario.addEventListener("submit", (event) => {
+  // Reiniciar error a false
+  let error = false;
+  console.log("---validfunction ok");
+  // Validar todos los campos
+  if (!validText()) error = true;
+
+  // Si no hay errores se envía el formulario
+  if (error) {
+    alert("No se ha podido enviar el formulario");
+    event.preventDefault();
+    event.stopPropagation();
+  } else {
+    alert("Se está enviando el formulario");
+  }
+});
 
 //survey VOTACIONES
 btnNode = document.querySelectorAll(".btnSurvey");
