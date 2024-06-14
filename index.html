@@ -34,7 +34,7 @@
           </div>
           <h3 id="userName">Usuario</h3>
         </div>
-        <form action="#" id="miForm">
+        <form id="miForm">
           <div class="encuesta">
             <div class="padreInput">
               <input
@@ -43,7 +43,7 @@
                 maxlength="25"
               />
               <span class="char-count">0/25</span>
-              <div id="invalid-name" class="invalid-feedback"></div>
+              <div class="invalid-feedback"></div>
             </div>
             <button class="button" type="submit">Publicar</button>
           </div>
@@ -51,10 +51,12 @@
             <div class="padreInput">
               <input type="text" placeholder="Opción 1" maxlength="25" />
               <span class="char-count">0/25</span>
+              <div class="invalid-feedback"></div>
             </div>
             <div class="padreInput">
               <input type="text" placeholder="Opción 2" maxlength="25" />
               <span class="char-count">0/25</span>
+              <div class="invalid-feedback"></div>
             </div>
             <button id="addButton" class="button" type="button">
               <img src="./img/mas.svg" alt="buscar" />

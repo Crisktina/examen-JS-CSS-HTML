@@ -33,7 +33,6 @@ function addOption(botonAdd, inputs) {
   opcionesEncuesta.insertBefore(newDiv, botonAdd);
 
   let inputsNew = opcionesEncuesta.querySelectorAll("input");
-  console.log(inputsNew);
   //inputs creados
   inputsNew.forEach((input) => {
     input.addEventListener("keyup", () => {
@@ -57,7 +56,6 @@ function numChar(input) {
   charCountSpan.textContent = `${currentLength}/${maxLength}`;
 }
 
-//TODO:crear encuesta a partir del form
 //validaciones
 let error = false;
 let mensajeObligatorio = "Campo obligatorio";
@@ -65,7 +63,8 @@ let mensajeObligatorio = "Campo obligatorio";
 //-----Campo obligatorio
 //trim, no empty, no mayor de 25 caracteres...
 function validText(input) {
-  const divError = document.getElementById("invalid-name");
+  const divError = input.nextElementSibling.nextElementSibling;
+  console.log(divError);
   if (input.value.trim().length == 0 || input.value.trim().length >= 25) {
     errorActive(divError, input, mensajeObligatorio);
     return false;
@@ -89,9 +88,12 @@ function success(divError, input) {
 formulario.addEventListener("submit", (event) => {
   // Reiniciar error a false
   let error = false;
-  console.log("---validfunction ok");
+  console.log("Ha entrado en el submit");
   // Validar todos los campos
-  if (!validText()) error = true;
+  if (!validText()) {
+    error = true;
+    console.log("---formulario NO OK");
+  }
 
   // Si no hay errores se envía el formulario
   if (error) {
@@ -102,6 +104,8 @@ formulario.addEventListener("submit", (event) => {
     alert("Se está enviando el formulario");
   }
 });
+
+//TODO:crear encuesta a partir del form
 
 //survey VOTACIONES
 btnNode = document.querySelectorAll(".btnSurvey");
