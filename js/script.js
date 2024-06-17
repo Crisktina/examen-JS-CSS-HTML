@@ -90,10 +90,13 @@ formulario.addEventListener("submit", (event) => {
   let error = false;
   console.log("Ha entrado en el submit");
   // Validar todos los campos
-  if (!validText()) {
-    error = true;
-    console.log("---formulario NO OK");
-  }
+  // Validar todos los campos
+  inputs.forEach((input) => {
+    if (!validText(input)) {
+      error = true;
+      console.log("---formulario NO OK");
+    }
+  });
 
   // Si no hay errores se envía el formulario
   if (error) {
