@@ -109,6 +109,130 @@ formulario.addEventListener("submit", (event) => {
 });
 
 //TODO:crear encuesta a partir del form
+function crearEncuesta() {
+  const pregunta = document.getElementById("pregunta").value.trim();
+  const opciones = Array.from(
+    document.querySelectorAll("#opcionesEncuesta input")
+  )
+    .map((input) => input.value.trim())
+    .filter((value) => value.length > 0);
+
+  if (!pregunta || opciones.length < 2) {
+    alert("Debe haber una pregunta y al menos dos opciones.");
+    return;
+  }
+
+  const encuestasContainer = document.getElementById("encuestasContainer");
+
+  const nuevaEncuesta = document.createElement("div");
+  nuevaEncuesta.className = "cardMessage";
+  nuevaEncuesta.innerHTML = `
+    <div class="cabeceraCard">
+      <div>
+        <div class="boxIconUser">
+          <img class="iconUser" src="./img/user.svg" alt="mensaje" />
+        </div>
+        <h3>Nuevo Usuario</h3>
+      </div>
+      <h4 id="totalVotos">0 votaciones</h4>
+    </div>
+    <p>${pregunta}</p>
+    ${opciones
+      .map(
+        (opcion, index) => `
+      <div class="opciones">
+        <button class="btnSurvey" type="button" value="${
+          index + 1
+        }">${opcion}</button>
+        <p id="porcentaje${index + 1}" class="porcentaje">0%</p>
+      </div>
+    `
+      )
+      .join("")}
+  `;
+
+  encuestasContainer.appendChild(nuevaEncuesta);
+
+  nuevaEncuesta.querySelectorAll(".btnSurvey").forEach((button, index) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      manejarVotacion(nuevaEncuesta, index);
+    });
+  });
+}
+function crearEncuesta() {
+  const pregunta = document.getElementById("pregunta").value.trim();
+  const opciones = Array.from(
+    document.querySelectorAll("#opcionesEncuesta input")
+  )
+    .map((input) => input.value.trim())
+    .filter((value) => value.length > 0);
+
+  if (!pregunta || opciones.length < 2) {
+    alert("Debe haber una pregunta y al menos dos opciones.");
+    return;
+  }
+
+  const encuestasContainer = document.getElementById("encuestasContainer");
+
+  const nuevaEncuesta = document.createElement("div");
+  nuevaEncuesta.className = "cardMessage";
+  nuevaEncuesta.innerHTML = `
+    <div class="cabeceraCard">
+      <div>
+        <div class="boxIconUser">
+          <img class="iconUser" src="./img/user.svg" alt="mensaje" />
+        </div>
+        <h3>Nuevo Usuario</h3>
+      </div>
+      <h4 id="totalVotos">0 votaciones</h4>
+    </div>
+    <p>${pregunta}</p>
+    ${opciones
+      .map(
+        (opcion, index) => `
+      <div class="opciones">
+        <button class="btnSurvey" type="button" value="${
+          index + 1
+        }">${opcion}</button>
+        <p id="porcentaje${index + 1}" class="porcentaje">0%</p>
+      </div>
+    `
+      )
+      .join("")}
+  `;
+
+  encuestasContainer.appendChild(nuevaEncuesta);
+
+  nuevaEncuesta.querySelectorAll(".btnSurvey").forEach((button, index) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      manejarVotacion(nuevaEncuesta, index);
+    });
+  });
+}
+
+// function manejarVotacion(encuesta, index) {
+//   const totalVotosH4 = encuesta.querySelector("#totalVotos");
+//   const porcentajeNodes = encuesta.querySelectorAll(".porcentaje");
+
+//   let totalVotos = parseInt(totalVotosH4.textContent) || 0;
+//   totalVotos++;
+//   totalVotosH4.textContent = `${totalVotos} votaciones`;
+
+//   const votosXBtn = new Array(porcentajeNodes.length).fill(0);
+//   votosXBtn[index]++;
+
+//   porcentajeNodes.forEach((p, idx) => {
+//     const porcentaje = calcularPorcentaje(votosXBtn[idx], totalVotos);
+//     p.textContent = `${porcentaje}%`;
+//   });
+// }
+
+// function calcularPorcentaje(votosOpcion, totalVotos) {
+//   let porcentaje = (100 * votosOpcion) / totalVotos;
+//   return porcentaje.toFixed(0);
+// }
 
 //survey VOTACIONES
 btnNode = document.querySelectorAll(".btnSurvey");
